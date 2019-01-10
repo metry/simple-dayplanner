@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1>Добавить заказчика</h1>
+        <h1 class="text-center">Добавить заказчика</h1>
+        <hr>
         <form action="{{route('customers.store')}}" method="post">
             {{csrf_field()}}
             @if ($errors->any())
@@ -61,7 +62,11 @@
                     @endfor
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Создать</button>
+            <div class="text-center">
+                <hr>
+                <button type="submit" class="btn btn-primary btn-lg">Создать</button>
+                <hr>
+            </div>
         </form>
     </div>
 @endsection

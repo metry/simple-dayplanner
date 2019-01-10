@@ -20,3 +20,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app'
 });
+
+$('#detailModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var content = button.data('content');
+    $(this).find('.modal-body-p').html(content);
+});

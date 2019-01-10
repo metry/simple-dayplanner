@@ -17,7 +17,7 @@ class AdministratorOnly
     public function handle($request, Closure $next)
     {
         if (!Auth::id() || Auth::user()->role !== 1) {
-            return redirect('/');
+            return redirect('/home');
         }
         return $next($request);
     }

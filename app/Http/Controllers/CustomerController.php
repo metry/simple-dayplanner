@@ -13,7 +13,13 @@ class CustomerController extends Controller
     public function index()
     {
         $data = Customer::orderBy('id', 'desc')->paginate(self::CUSTOMERS_ON_PAGE);
-        return view('customers.index', ['customers' => $data]);
+        return view('customers.index', ['customers' => $data, 'title' => 'Заказчики']);
+    }
+
+    public function search(Request $request)
+    {
+        $data = Customer::searchCustomers($request->get('q'), self::CUSTOMERS_ON_PAGE);
+        return view('customers.index', ['customers' => $data, 'title' => 'Результаты поиска']);
     }
 
     public function create()

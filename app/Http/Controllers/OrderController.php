@@ -18,12 +18,16 @@ class OrderController extends Controller
     const RESULTS_UPLOAD_DIRECTORY = 'results';
     const IMAGE_WIDTH = 616;
 
+    const ALL_ORDERS = 'Все заказы';
+    const ORDERS_IN_WORK = 'Заказы в работе';
+    const CUSTOMER_ORDERS = 'Заказы отдельного заказчика';
+
     private $order;
 
     public function index()
     {
         $data = Order::orderBy('delivery_at', 'desc')->paginate(self::ORDERS_ON_PAGE);
-        return view('orders.index', ['orders' => $data]);
+        return view('orders.index', ['orders' => $data, 'title' => self::ALL_ORDERS]);
     }
 
     public function create()
@@ -186,14 +190,14 @@ class OrderController extends Controller
 
     public function dashboard()
     {
-        $data = Order::where('status_id', '<>', 3)->orderBy('delivery_at', 'desc')->paginate(self::ORDERS_ON_PAGE);
-        return view('orders.index', ['orders' => $data]);
+        $data = Order::where('status_id', '<>', 3)->orderBy('delivery_at', 'asc')->paginate(self::ORDERS_ON_PAGE);
+        return view('orders.index', ['orders' => $data, 'title' => self::ORDERS_IN_WORK]);
     }
 
     public function customer($id)
     {
         $data = Order::where('customer_id', '=', $id)->orderBy('delivery_at', 'desc')->paginate(self::ORDERS_ON_PAGE);
-        return view('orders.index', ['orders' => $data]);
+        return view('orders.index', ['orders' => $data, 'title' => self::CUSTOMER_ORDERS]);
     }
 
     public function catalog()

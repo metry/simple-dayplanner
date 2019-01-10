@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1>Изменить заказ</h1>
+        <h1 class="text-center">Изменить заказ</h1>
+        <hr>
         <form action="{{route('orders.update', ['id' => $order->id])}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             @if ($errors->any())
@@ -32,6 +33,7 @@
                     <a class="form-control btn btn-primary" href="{{route('customers.create')}}">Добавить</a>
                 </div>
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="price">Цена, руб.</label>
                 <input type="number" min="0" step="0.01" class="form-control" id="price" name="price" value="{{$order->price}}">
@@ -40,6 +42,7 @@
                 <label for="prepayment">Внесено, руб.</label>
                 <input type="number" min="0" step="0.01" class="form-control" id="prepayment" name="prepayment" value="{{$order->prepayment}}">
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="finished_at">Выполнить</label>
                 <input type="datetime-local" class="form-control" id="finished_at" name="finished_at" value="{{\Carbon\Carbon::parse($order->finished_at)->format('Y-m-d\TH:i')}}">
@@ -66,6 +69,7 @@
                 <label for="info">Информация</label>
                 <textarea class="form-control" id="info" rows="3" name="info">{{$order->info}}</textarea>
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="is_need_cake">Хотел ли торт</label>
                 <select id="is_need_cake" name="is_need_cake" class="form-control">
@@ -73,9 +77,10 @@
                     <option value="1" @if ($order->is_need_cake==1) selected @endif >Да</option>
                 </select>
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="subject">Заказ</label>
-                <textarea class="form-control" id="subject" rows="3" name="subject">{{$order->subject}}</textarea>
+                <textarea class="form-control" id="subject" rows="8" name="subject">{{$order->subject}}</textarea>
             </div>
             @if ($order->subjects->count())
             <div class="row">
@@ -95,6 +100,7 @@
                 <label for="subject_photo">Заказ (фото, примеры)</label>
                 <input type="file" class="form-control-file" id="subject_photo" multiple name="subject_photo[]">
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="result">Итог</label>
                 <textarea class="form-control" id="result" rows="3" name="result">{{$order->result}}</textarea>
@@ -117,6 +123,7 @@
                 <label for="result_photo">Итог (фото)</label>
                 <input type="file" class="form-control-file" id="result_photo" multiple name="result_photo[]">
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="is_in_catalog">Отображать в каталоге</label>
                 <select id="is_in_catalog" name="is_in_catalog" class="form-control">
@@ -132,7 +139,11 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Изменить</button>
+            <div class="text-center">
+                <hr>
+                <button type="submit" class="btn btn-primary btn-lg">Изменить</button>
+                <hr>
+            </div>
         </form>
     </div>
 @endsection

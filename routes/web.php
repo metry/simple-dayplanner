@@ -11,10 +11,11 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
-
+*/
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -26,6 +27,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/customers/edit/{id}', 'CustomerController@edit')->name('customers.edit');
     Route::get('/customers/delete/{id}', 'CustomerController@delete')->name('customers.delete');
     Route::post('/customers/update/{id}', 'CustomerController@update')->name('customers.update');
+    Route::get('/customers/search', 'CustomerController@search')->name('customers.search');
 
     Route::get('/orders', 'OrderController@index')->name('orders.index');
     Route::get('/orders/create', 'OrderController@create')->name('orders.create');
@@ -37,7 +39,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/subjects/delete/{id}', 'SubjectController@delete')->name('subjects.delete');
     Route::post('/results/delete/{id}', 'ResultController@delete')->name('results.delete');
 
-    Route::get('/dashboard', 'OrderController@dashboard')->name('orders.dashboard');
+    Route::get('/', 'OrderController@dashboard')->name('orders.dashboard');
     Route::get('/orders/customer/{id}', 'OrderController@customer')->name('orders.customer');
     Route::get('/catalog', 'OrderController@catalog')->name('orders.catalog');
 });

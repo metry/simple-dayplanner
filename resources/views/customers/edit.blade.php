@@ -2,7 +2,17 @@
 
 @section('content')
     <div class="container">
-        <h1>Изменить заказчика</h1>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h1 class="text-center">Изменить заказчика</h1>
+            </div>
+            @if ($customer->orders->count())
+            <div class="col-md-2 text-center">
+                <a href="{{route('orders.customer', ['id' => $customer->id])}}" class="h1 btn btn-default">Все заказы данного заказчика</a>
+            </div>
+            @endif
+        </div>
+        <hr>
         <form action="{{route('customers.update', ['id' => $customer->id])}}" method="post">
             {{csrf_field()}}
             @if ($errors->any())
@@ -57,7 +67,11 @@
                     @endfor
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Обновить</button>
+            <div class="text-center">
+                <hr>
+                <button type="submit" class="btn btn-primary btn-lg">Обновить</button>
+                <hr>
+            </div>
         </form>
     </div>
 @endsection

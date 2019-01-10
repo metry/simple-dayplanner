@@ -32,7 +32,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <img src="{{ asset('images/logo.png') }}" alt="logo">
                     </a>
                 </div>
 
@@ -46,13 +46,15 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <!--<li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>-->
                         @else
-                            <li><a href="{{ route('orders.catalog') }}">Catalog</a></li>
-                            <li><a href="{{ route('orders.dashboard') }}">Dashboard</a></li>
-                            <li><a href="{{ route('orders.index') }}">Заказы</a></li>
-                            <li><a href="{{ route('customers.index') }}">Заказчики</a></li>
+                            @if (Auth::user()->role == 1)
+                            <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('orders.dashboard') }}">Заказы в работе</a></li>
+                            <li class="{{ request()->is('orders*') ? 'active' : '' }}"><a href="{{ route('orders.index') }}">Все заказы</a></li>
+                            <li class="{{ request()->is('customers*') ? 'active' : '' }}"><a href="{{ route('customers.index') }}">Заказчики</a></li>
+                            <li class="{{ request()->is('catalog*') ? 'active' : '' }}"><a href="{{ route('orders.catalog') }}">Каталог</a></li>
+                            @endif
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -63,7 +65,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Выйти
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -77,8 +79,26 @@
                 </div>
             </div>
         </nav>
-
         @yield('content')
+
+        <div id="detailModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Подробно:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-body-p">
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Scripts -->

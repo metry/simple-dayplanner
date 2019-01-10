@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1>Новый заказ</h1>
+        <h1 class="text-center">Новый заказ</h1>
+        <hr>
         <form action="{{route('orders.store')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             @if ($errors->any())
@@ -14,7 +15,6 @@
                     </ul>
                 </div>
             @endif
-
             <div class="row">
                 <div class="form-group col-md-4">
                     <label for="customer_id">Заказчик</label>
@@ -33,7 +33,7 @@
                     <a class="form-control btn btn-primary" href="{{route('customers.create')}}">Добавить</a>
                 </div>
             </div>
-
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="price">Цена, руб.</label>
                 <input type="number" min="0" step="0.01" class="form-control" id="price" name="price" value="{{ old('price') }}">
@@ -42,6 +42,7 @@
                 <label for="prepayment">Внесено, руб.</label>
                 <input type="number" min="0" step="0.01" class="form-control" id="prepayment" name="prepayment" value="{{ old('prepayment') ? old('prepayment') : 0 }}">
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="finished_at">Выполнить</label>
                 <input type="datetime-local" class="form-control" id="finished_at" name="finished_at" value="{{ old('finished_at') }}">
@@ -68,6 +69,7 @@
                 <label for="info">Информация</label>
                 <textarea class="form-control" id="info" rows="3" name="info">{{ old('info') }}</textarea>
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="is_need_cake">Хотел ли торт</label>
                 <select id="is_need_cake" name="is_need_cake" class="form-control">
@@ -75,14 +77,16 @@
                     <option value="1" @if (old("is_need_cake")==1) selected @endif >Да</option>
                 </select>
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="subject">Заказ</label>
-                <textarea class="form-control" id="subject" rows="3" name="subject">{{ old('subject') }}</textarea>
+                <textarea class="form-control" id="subject" rows="8" name="subject">{{ old('subject') }}</textarea>
             </div>
             <div class="form-group">
                 <label for="subject_photo">Заказ (фото, примеры)</label>
                 <input type="file" class="form-control-file" id="subject_photo" multiple name="subject_photo[]">
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="result">Итог</label>
                 <textarea class="form-control" id="result" rows="3" name="result">{{ old('result') }}</textarea>
@@ -91,6 +95,7 @@
                 <label for="result_photo">Итог (фото)</label>
                 <input type="file" class="form-control-file" id="result_photo" multiple name="result_photo[]">
             </div>
+            <hr class="hidden-md hidden-lg">
             <div class="form-group">
                 <label for="is_in_catalog">Отображать в каталоге</label>
                 <select id="is_in_catalog" name="is_in_catalog" class="form-control">
@@ -106,7 +111,11 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Создать</button>
+            <div class="text-center">
+                <hr>
+                <button type="submit" class="btn btn-primary btn-lg">Создать</button>
+                <hr>
+            </div>
         </form>
     </div>
 @endsection

@@ -17,4 +17,21 @@ class Customer extends Model
     {
         return $this->hasMany(Order::class, 'customer_id', 'id');
     }
+
+    public function getPhoneNumericAttribute()
+    {
+        return preg_replace("/[^0-9]/", '', $this->phone);
+    }
+
+    public static function searchCustomers($request, $countOnPage)
+    {
+        return Customer::where('name', 'LIKE', "%". $request ."%")
+            ->orWhere('phone', 'LIKE', "%". $request ."%")
+            ->orWhere('email', 'LIKE', "%". $request ."%")
+            ->orWhere('instagram', 'LIKE', "%". $request ."%")
+            ->orWhere('vk', 'LIKE', "%". $request ."%")
+            ->orWhere('address', 'LIKE', "%". $request ."%")
+            ->orderBy('id', 'desc')
+            ->paginate($countOnPage);
+    }
 }
